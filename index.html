@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Selamat Ulang Tahun Mas Yusuf!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: pink;
+      color: #333;
+      text-align: center;
+      overflow-x: hidden;
+      padding: 1em;
+    }
+    h1 {
+      font-family: 'Sacramento', cursive;
+      font-size: 3em;
+      margin-top: 1em;
+    }
+    .subtitle {
+      font-size: 1.2em;
+      margin: 1em 2em;
+    }
+    button {
+      background-color: #fff;
+      border: none;
+      padding: 1em 2em;
+      margin: 1.5em;
+      font-size: 1em;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .gift-box {
+      font-size: 3em;
+      cursor: pointer;
+    }
+    .hidden-message {
+      display: none;
+      margin-top: 1em;
+      padding: 1em;
+      background-color: #fff;
+      border-radius: 10px;
+      margin: 2em auto;
+      width: 80%;
+      max-width: 500px;
+      font-size: 1.1em;
+      line-height: 1.5;
+    }
+    form {
+      margin-top: 2em;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 1em;
+      margin: 0.5em 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      box-sizing: border-box;
+    }
+    audio {
+      display: none;
+    }
+    #whatsapp-send-btn {
+      display: none;
+      background-color: #25D366;
+      color: white;
+      font-weight: bold;
+      margin-top: 1em;
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="https://ia801408.us.archive.org/23/items/jamrud-selamat-ulang-tahun_202405/Jamrud%20-%20Selamat%20Ulang%20Tahun.mp3" type="audio/mpeg" />
+  </audio>
+
+  <h1>Selamat Ulang Tahun, Mas Yusuf! 🎉</h1>
+  <p class="subtitle">
+    Hari ini bukan cuma hari spesial buat kamu,<br />
+    tapi juga hari yang bikin ade bersyukur banget karena mas Yusuf udah lahir ke dunia. 💖<br />
+    1,5 tahun LDR nggak ngurangin rasa sayang ade sama mas, malah makin nambah tiap hari 🥹💕
+  </p>
+
+  <div class="gift-box" onclick="toggleMessage()">🎁</div>
+  <div class="hidden-message" id="message">
+    Hai sayangkuu, cintakuu, kekasihkuu, gantengkuu, calon suamikuu, dunia akhiratku...<br /><br />
+    Selamat ulang tahun yang ke-24 yaa 💖🥰<br />
+    Doa adee selalu hadir untuk menemani hari-hari mas.<br />
+    Sayang, makasih ya udah lahir ke dunia ini.<br />
+    Mas itu lelaki hebat yang adeee sayangi banget banget banget!<br />
+    Mas udah bikin adee sekuat ini.<br />
+    Mas keren banget, sehat selalu yaa sayangkuu 💞<br />
+    Pokoknya yang terbaik buat mas selalu.<br />
+    Always love you 💞
+  </div>
+
+  <form id="responseForm" onsubmit="handleSubmit(event)">
+    <h2>Kirim balasan ke adee 💌</h2>
+    <input type="text" id="name" name="name" placeholder="Nama kamu" required />
+    <textarea id="messageInput" name="message" placeholder="Tulis ucapan atau balasan kamu di sini yaa..." rows="5" required></textarea>
+    <button type="submit">Submit</button>
+  </form>
+
+  <button id="whatsapp-send-btn" onclick="sendWhatsApp()">Kirim ke WhatsApp</button>
+
+  <script>
+    const whatsappNumber = "6285723027768"; // Nomor kamu, format internasional tanpa tanda +
+
+    function toggleMessage() {
+      const msg = document.getElementById("message");
+      msg.style.display = msg.style.display === "block" ? "none" : "block";
+    }
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      // ambil nilai form
+      const name = document.getElementById("name").value.trim();
+      const message = document.getElementById("messageInput").value.trim();
+
+      if(name === "" || message === "") {
+        alert("Tolong isi semua kolom yaa 😊");
+        return;
+      }
+
+      // tampilkan tombol WhatsApp
+      document.getElementById("whatsapp-send-btn").style.display = "inline-block";
+
+      // simpan data untuk kirim WhatsApp
+      window.whatsappMessage = `Halo adee, ini balasan dari ${name}:%0A${encodeURIComponent(message)}`;
+
+      // sembunyikan form supaya clear
+      document.getElementById("responseForm").style.display = "none";
+    }
+
+    function sendWhatsApp() {
+      if(!window.whatsappMessage) {
+        alert("Isi dulu formnya ya!");
+        return;
+      }
+      // buka WhatsApp dengan pesan otomatis
+      const url = `https://wa.me/${whatsappNumber}?text=${window.whatsappMessage}`;
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
